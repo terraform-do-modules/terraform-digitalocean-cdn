@@ -25,12 +25,6 @@ variable "certificate_name" {
   description = "The unique name of a DigitalOcean managed TLS certificate used for SSL when a custom subdomain is provided."
 }
 
-variable "certificate_id" {
-  type        = string
-  default     = null
-  description = "Deprecated The ID of a DigitalOcean managed TLS certificate used for SSL when a custom subdomain is provided."
-}
-
 variable "custom_domain" {
   type        = string
   default     = null
