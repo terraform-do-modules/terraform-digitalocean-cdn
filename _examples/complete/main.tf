@@ -1,15 +1,12 @@
-provider "digitalocean" {
-  spaces_access_id  = "XXXXXXXXXXXX"
-  spaces_secret_key = "XXXXXXXXXXXX"
-}
+provider "digitalocean" {}
 
 ##------------------------------------------------
 ## spaces module call
 ##------------------------------------------------
 module "spaces" {
-  source        = "git::https://github.com/terraform-do-modules/terraform-digitalocean-spaces.git?ref=internal-424"
+  source        = "terraform-do-modules/spaces/digitalocean"
+  version       = "1.0.0"
   name          = "spaces"
-  environment   = "test"
   acl           = "private"
   force_destroy = false
   region        = "nyc3"
