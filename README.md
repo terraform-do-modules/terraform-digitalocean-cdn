@@ -4,20 +4,23 @@
 
 
 <h1 align="center">
-    Terraform Module Template
+    Terraform Digitalocean CDN
 </h1>
 
 <p align="center" style="font-size: 1.2rem;"> 
-    Terraform module template to create new modules using this as baseline
+    Terraform module to create Digitalocean cdn service resource on Digitalocean.
      </p>
 
 <p align="center">
 
-<a href="https://github.com/clouddrove/terraform-module-template/releases/latest">
-  <img src="https://img.shields.io/github/release/clouddrove/terraform-module-template.svg" alt="Latest Release">
+<a href="https://github.com/terraform-do-modules/terraform-digitalocean-cdn/releases/latest">
+  <img src="https://img.shields.io/github/release/terraform-do-modules/terraform-digitalocean-cdn.svg" alt="Latest Release">
 </a>
-<a href="">
-  <img src="https://github.com/clouddrove/terraform-module-template/actions/workflows/tfsec.yml/badge.svg" alt="tfsec">
+<a href="https://github.com/terraform-do-modules/terraform-digitalocean-cdn/actions/workflows/tfsec.yml">
+  <img src="https://github.com/terraform-do-modules/terraform-digitalocean-cdn/actions/workflows/tfsec.yml/badge.svg" alt="tfsec">
+</a>
+<a href="https://www.terraform.io">
+  <img src="https://img.shields.io/badge/Terraform-v1.4.6-green" alt="Terraform">
 </a>
 <a href="LICENSE.md">
   <img src="https://img.shields.io/badge/License-APACHE-blue.svg" alt="Licence">
@@ -27,13 +30,13 @@
 </p>
 <p align="center">
 
-<a href='https://facebook.com/sharer/sharer.php?u=https://github.com/clouddrove/terraform-module-template'>
+<a href='https://facebook.com/sharer/sharer.php?u=https://github.com/terraform-do-modules/terraform-digitalocean-cdn'>
   <img title="Share on Facebook" src="https://user-images.githubusercontent.com/50652676/62817743-4f64cb80-bb59-11e9-90c7-b057252ded50.png" />
 </a>
-<a href='https://www.linkedin.com/shareArticle?mini=true&title=Terraform+Module+Template&url=https://github.com/clouddrove/terraform-module-template'>
+<a href='https://www.linkedin.com/shareArticle?mini=true&title=Terraform+Digitalocean+CDN&url=https://github.com/terraform-do-modules/terraform-digitalocean-cdn'>
   <img title="Share on LinkedIn" src="https://user-images.githubusercontent.com/50652676/62817742-4e339e80-bb59-11e9-87b9-a1f68cae1049.png" />
 </a>
-<a href='https://twitter.com/intent/tweet/?text=Terraform+Module+Template&url=https://github.com/clouddrove/terraform-module-template'>
+<a href='https://twitter.com/intent/tweet/?text=Terraform+Digitalocean+CDN&url=https://github.com/terraform-do-modules/terraform-digitalocean-cdn'>
   <img title="Share on Twitter" src="https://user-images.githubusercontent.com/50652676/62817740-4c69db00-bb59-11e9-8a79-3580fbbf6d5c.png" />
 </a>
 
@@ -53,11 +56,7 @@ We have [*fifty plus terraform modules*][terraform_modules]. A few of them are c
 ## Prerequisites
 
 This module has a few dependencies: 
-
-- [Terraform 1.x.x](https://learn.hashicorp.com/terraform/getting-started/install.html)
-- [Go](https://golang.org/doc/install)
-- [github.com/stretchr/testify/assert](https://github.com/stretchr/testify)
-- [github.com/gruntwork-io/terratest/modules/terraform](https://github.com/gruntwork-io/terratest)
+- [Terraform 1.4.6](https://learn.hashicorp.com/terraform/getting-started/install.html)
 
 
 
@@ -68,12 +67,30 @@ This module has a few dependencies:
 ## Examples
 
 
-**IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/clouddrove/terraform-module-template/releases).
+**IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/terraform-do-modules/terraform-digitalocean-cdn/releases).
 
 
-Here are some examples of how you can use this module in your inventory structure:
+Here is an example of how you can use this module in your inventory structure:
+### Complete Example
 ```hcl
-  ```
+  module "cdn" {
+    source             = "terraform-do-modules/cdn/digitalocean"
+    version            = "1.0.0"
+    origin             = module.spaces.bucket_domain_name
+    ttl                = 3600
+    custom_domain      = ""
+    certificate_name   = ""
+  }
+```
+##basic example
+```hcl
+  module "cdn" {
+    source             = "terraform-do-modules/cdn/digitalocean"
+    version            = "1.0.0"
+    origin             = module.spaces.bucket_domain_name
+    ttl                = 3600
+  }
+```
 
 
 
@@ -84,13 +101,22 @@ Here are some examples of how you can use this module in your inventory structur
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| label\_order | Label order, e.g. `name`,`environment`. | `list(string)` | <pre>[<br>  "name",<br>  "environment"<br>]</pre> | no |
+| certificate\_name | The unique name of a DigitalOcean managed TLS certificate used for SSL when a custom subdomain is provided. | `string` | `null` | no |
+| custom\_domain | The fully qualified domain name (FQDN) of the custom subdomain used with the CDN Endpoint. | `string` | `null` | no |
+| enabled | Whether to create the resources. Set to `false` to prevent the module from creating any resources. | `bool` | `true` | no |
+| origin | The fully qualified domain name, (FQDN) for a Space. | `string` | `""` | no |
+| ttl | The time to live for the CDN Endpoint, in seconds. Default is 3600 seconds. | `number` | `3600` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| label\_order | Label order. |
+| created\_at | The date and time when the CDN Endpoint was created. |
+| custom\_domain | The fully qualified domain name (FQDN) of the custom subdomain used with the CDN Endpoint. |
+| endpoint | The fully qualified domain name (FQDN) from which the CDN-backed content is served. |
+| id | A unique ID that can be used to identify and reference a CDN Endpoint. |
+| origin | The fully qualified domain name, (FQDN) of a space referenced by the CDN Endpoint. |
+| ttl | The time to live for the CDN Endpoint, in seconds. |
 
 
 
@@ -106,9 +132,9 @@ You need to run the following command in the testing folder:
 
 
 ## Feedback 
-If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/clouddrove/terraform-module-template/issues), or feel free to drop us an email at [hello@clouddrove.com](mailto:hello@clouddrove.com).
+If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/terraform-do-modules/terraform-digitalocean-cdn/issues), or feel free to drop us an email at [hello@clouddrove.com](mailto:hello@clouddrove.com).
 
-If you have found it worth your time, go ahead and give us a ★ on [our GitHub](https://github.com/clouddrove/terraform-module-template)!
+If you have found it worth your time, go ahead and give us a ★ on [our GitHub](https://github.com/terraform-do-modules/terraform-digitalocean-cdn)!
 
 ## About us
 
