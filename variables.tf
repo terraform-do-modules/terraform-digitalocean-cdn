@@ -17,6 +17,11 @@ variable "ttl" {
   type        = number
   default     = 3600
   description = "The time to live for the CDN Endpoint, in seconds. Default is 3600 seconds."
+
+  validation {
+    condition     = var.ttl >= 60 && var.ttl <= 604800
+    error_message = "ttl must be between 60 and 604800 seconds."
+  }
 }
 
 variable "certificate_name" {
