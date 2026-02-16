@@ -53,6 +53,14 @@ We have [*fifty plus terraform modules*][terraform_modules]. A few of them are c
 
 
 
+## Table of Contents
+- [Prerequisites](#prerequisites)
+- [Examples](#examples)
+- [Inputs](#inputs)
+- [Outputs](#outputs)
+- [Related Modules](#related-modules)
+- [Testing](#testing)
+
 ## Prerequisites
 
 This module has a few dependencies: 
@@ -120,6 +128,13 @@ Here is an example of how you can use this module in your inventory structure:
 
 
 
+
+
+## Related Modules
+
+- [terraform-digitalocean-spaces](https://github.com/terraform-do-modules/terraform-digitalocean-spaces) — commonly used as CDN origin storage.
+- [terraform-digitalocean-certificate](https://github.com/terraform-do-modules/terraform-digitalocean-certificate) — SSL certificate management for custom CDN domains.
+- [terraform-digitalocean-domain](https://github.com/terraform-do-modules/terraform-digitalocean-domain) — DNS management for custom hostnames.
 
 ## Testing
 In this module testing is performed with [terratest](https://github.com/gruntwork-io/terratest) and it creates a small piece of infrastructure, matches the output like ARN, ID and Tags name etc and destroy infrastructure in your AWS account. This testing is written in GO, so you need a [GO environment](https://golang.org/doc/install) in your system. 
