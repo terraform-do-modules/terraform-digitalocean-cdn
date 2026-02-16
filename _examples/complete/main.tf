@@ -5,7 +5,7 @@ provider "digitalocean" {}
 ##------------------------------------------------
 module "spaces" {
   source        = "terraform-do-modules/spaces/digitalocean"
-  version       = "1.0.2"
+  version       = "1.0.3"
   name          = "spaces"
   acl           = "private"
   force_destroy = false
