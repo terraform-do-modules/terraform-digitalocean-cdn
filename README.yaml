@@ -76,7 +76,7 @@ usage : |-
   export DIGITALOCEAN_TOKEN="<your-token>"
   export SPACES_ACCESS_KEY_ID="<your-spaces-key>"
   export SPACES_SECRET_ACCESS_KEY="<your-spaces-secret>"
-  cd _examples/terragrunt
+  cd examples/terragrunt
   terragrunt init
   terragrunt plan
   terragrunt apply
