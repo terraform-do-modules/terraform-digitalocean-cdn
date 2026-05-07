@@ -15,7 +15,7 @@
 <a href="https://www.terraform.io">
   <img src="https://img.shields.io/badge/Terraform-v1.6-green" alt="Terraform">
 </a>
-<a href="https://opentofu.org/>
+<a href="https://opentofu.org">
   <img src="https://img.shields.io/badge/OpenTofu-v1.6-purple" alt="OpenTofu">
 </a>
 <a href="LICENSE.md">
