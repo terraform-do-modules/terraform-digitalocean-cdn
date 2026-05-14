@@ -7,4 +7,5 @@ resource "digitalocean_cdn" "main" {
   ttl              = var.ttl
   custom_domain    = var.custom_domain
   certificate_name = var.certificate_name
+  certificate_id   = var.certificate_id
 }
