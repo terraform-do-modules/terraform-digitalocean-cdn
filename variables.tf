@@ -35,3 +35,9 @@ variable "custom_domain" {
   default     = null
   description = "The fully qualified domain name (FQDN) of the custom subdomain used with the CDN Endpoint."
 }
+
+variable "certificate_id" {
+  type        = string
+  default     = null
+  description = "The ID of a DigitalOcean managed TLS certificate used for SSL when a custom subdomain is provided. (Deprecated)"
+}
