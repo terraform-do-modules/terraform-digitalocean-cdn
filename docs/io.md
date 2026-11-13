@@ -8,6 +8,7 @@
 | origin | The fully qualified domain name (FQDN) for a Space. | `string` | `""` | no |
 | ttl | The time to live for the CDN Endpoint, in seconds. Must be between 60 and 604800. Default is 3600 seconds. | `number` | `3600` | no |
 | certificate\_name | The unique name of a DigitalOcean managed TLS certificate used for SSL when a custom subdomain is provided. | `string` | `null` | no |
+| certificate\_id | The ID of a DigitalOcean managed TLS certificate used for SSL when a custom subdomain is provided. Deprecated by the provider, prefer `certificate_name`. | `string` | `null` | no |
 | custom\_domain | The fully qualified domain name (FQDN) of the custom subdomain used with the CDN Endpoint. | `string` | `null` | no |
 
 ## Outputs
